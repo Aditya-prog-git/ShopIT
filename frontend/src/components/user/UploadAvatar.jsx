@@ -11,7 +11,7 @@ const UploadAvatar = () => {
 
   const [avatar, setAvatar] = useState('');
   const [avatarPreview, setAvatarPreview] = useState(
-    user?.avatar ? user?.avatar.url : "/images/default_avatar.jpg"
+    user?.avatar ? user?.avatar?.url : "/images/default_avatar.jpg"
   )
 
   const navigate = useNavigate();
@@ -46,7 +46,7 @@ const UploadAvatar = () => {
 
     const reader = new FileReader()
 
-    reader.onLoad = () => {
+    reader.onload = () => {
       if(reader.readyState === 2) {
         setAvatarPreview(reader.result)
         setAvatar(reader.result)
