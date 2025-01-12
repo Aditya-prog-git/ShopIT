@@ -6,6 +6,7 @@ import errroMiddleware from './middlewares/errors.js';
 import userRoutes from './routes/auth.js';
 import cookieParser from 'cookie-parser';
 import orderRoutes from './routes/order.js';
+import paymentRoutes from './routes/payment.js';
 
 //handle uncaught exceptions
 process.on('uncaughtException', err => {
@@ -31,6 +32,8 @@ app.use('/api/v1', productRoutes);
 app.use('/api/v1', userRoutes);
 //order routes
 app.use('/api/v1', orderRoutes);
+//payment routes
+app.use('/api/v1', paymentRoutes);
 
 //using error middleware
 app.use(errroMiddleware);
