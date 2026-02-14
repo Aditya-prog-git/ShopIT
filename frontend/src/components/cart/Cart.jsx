@@ -57,14 +57,14 @@ const Cart = () => {
           <div className="row d-flex justify-content-between">
             <div className="col-12 col-lg-8">
               {cartItems?.map(item => (
-                <>
+                <div key={item?.product}>
                   <hr />
-                  <div className="cart-item" data-key="product1">
+                  <div className="cart-item">
                     <div className="row">
                       <div className="col-4 col-lg-3">
                         <img
                           src={item?.image}
-                          alt="Laptop"
+                          alt={item?.name}
                           height="90"
                           width="115"
                         />
@@ -82,7 +82,7 @@ const Cart = () => {
                             type="number"
                             className="form-control count d-inline"
                             value={item?.quantity}
-                            readonly
+                            readOnly
                           />
                           <span className="btn btn-primary plus" onClick={() => increseQty(item, item.quantity)}> + </span>
                         </div>
@@ -93,7 +93,7 @@ const Cart = () => {
                     </div>
                   </div>
                   <hr />
-                </>
+                </div>
               ))}
             </div>
     
