@@ -5,13 +5,13 @@ import CheckoutSteps from './CheckoutSteps'
 import { calculateCost } from '../helpers/helpers'
 import { useCreateNewOrderMutation, useStripeCheckoutSessionMutation } from '../../redux/api/orderApi'
 import { toast } from 'react-hot-toast'
-import { useNavigate } from 'react-router-dom'
+// import { useNavigate } from 'react-router-dom'
 
 const PaymentMethod = () => {
 
   const [method, setMethod] = useState('')
 
-  const navigate = useNavigate()
+  // const navigate = useNavigate();
 
   const { shippingInfo, cartItems } = useSelector((state) => state.cart);
 
@@ -21,6 +21,9 @@ const PaymentMethod = () => {
 
   useEffect(() => {
     if(checkoutData){
+      console.log("=============================")
+      console.log(checkoutData)
+      console.log("=============================")
       window.location.href = checkoutData?.url
     }
 
@@ -67,7 +70,7 @@ const PaymentMethod = () => {
       createNewOrder(orderData)
     }
 
-    if(method === 'Card'){
+    if(method === 'card'){
       //Stripe checkout
       const orderData = {
         shippingInfo,

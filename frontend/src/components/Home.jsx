@@ -52,7 +52,7 @@ const Home = () => {
             <div className="row">
               {/* <!-- Product Item 1 --> */}
               {data?.products?.map((product) => (
-                <ProductItem product={product} columnSize={columnSize} />
+                <ProductItem key = {product._id} product={product} columnSize={columnSize} />
               ))}
               {/* <!-- End Product Item 1 --> */}
             </div>

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { useGetProductDetailsQuery } from '../../redux/api/productsApi';
-import ReactStars from "react-rating-stars-component";
+import MyStars from "../MyStars";
 import toast from 'react-hot-toast';
 import Loader from '../layout/Loader';
 import { useDispatch } from 'react-redux';
@@ -98,7 +98,7 @@ const ProductDetails = () => {
         <hr />
 
         <div className="d-flex">
-          <ReactStars
+          <MyStars
             count={5}
             value={product?.ratings}
             size={24}
@@ -115,7 +115,7 @@ const ProductDetails = () => {
             type="number"
             className="form-control count d-inline"
             value={quantity}
-            readonly
+            readOnly
           />
           <span className="btn btn-primary plus" onClick={increseQty}>+</span>
         </div>

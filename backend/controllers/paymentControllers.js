@@ -27,7 +27,7 @@ export const stripeCheckoutSession = catchAsyncErrors(async (req, res, next) => 
   const shipping_rate = body?.itemsPrice >= 200 ? "shr_1Qg5UUCpPrkeZ2lEQPsBuphJ" : "shr_1Qg5V2CpPrkeZ2lEOe3wOnUu"
 
   const session = await stripe.checkout.sessions.create({
-    payment_method_types: ['Card'],
+    payment_method_types: ['card'],
     success_url: `${process.env.FRONTEND_URL}/me/orders`,
     cancel_url: `${process.env.FRONTEND_URL}`,
     customer_email: req?.user?.email,

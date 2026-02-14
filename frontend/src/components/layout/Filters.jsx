@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { getPriceQueryParams } from '../helpers/helpers';
 import { PRODUCT_CATEGORIES } from '../constants/constants';
-import ReactStars from "react-rating-stars-component";
+import MyStars from "../MyStars";
 
 const Filters = () => {
 
@@ -129,7 +129,7 @@ const Filters = () => {
           onClick={(e) => handleClick(e.target)}
         />
         <label className="form-check-label" for="check7">
-          <ReactStars
+          <MyStars
             count={5}
             value={rating}
             size={22}

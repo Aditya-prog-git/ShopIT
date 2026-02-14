@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import ReactStars from "react-rating-stars-component";
+import MyStars from "../MyStars";
 
 const ProductItem = ( {product, columnSize} ) => {
   return (
@@ -18,7 +18,7 @@ const ProductItem = ( {product, columnSize} ) => {
             <Link to={`/product/${product?._id}`}>{product?.name}</Link>
           </h5>
           <div className="ratings mt-auto d-flex"> 
-          <ReactStars
+          <MyStars
             count={5}
             value={product?.ratings}
             size={22}
