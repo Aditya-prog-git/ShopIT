@@ -1,5 +1,9 @@
 import express from 'express';
 import dotenv from 'dotenv';
+
+//load env variables first
+dotenv.config({ path: 'backend/config/.env' });
+
 import { connectDatabase } from './config/dbConnect.js';
 import productRoutes from './routes/products.js';
 import errroMiddleware from './middlewares/errors.js';
@@ -16,7 +20,6 @@ process.on('uncaughtException', err => {
 });
 
 const app = express();
-dotenv.config({ path: 'backend/config/config.env' });
 
 //connecting to database
 connectDatabase();

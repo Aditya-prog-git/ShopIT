@@ -1,10 +1,19 @@
 import catchAsyncErrors from '../middlewares/catchAsyncErrors.js'
 import Order from '../models/order.js';
 import Stripe  from 'stripe'
-const stripe = Stripe(process.env.STRIPE_SECRET_KEY)
+
+let stripe;
+
+const getStripe = () => {
+  if (!stripe) {
+    stripe = Stripe(process.env.STRIPE_SECRET_KEY);
+  }
+  return stripe;
+}
 
 //create stripe checkout session => /api/v1/payment/checkout_session
 export const stripeCheckoutSession = catchAsyncErrors(async (req, res, next) => {
+  const stripeClient = getStripe();
 
   const body = req?.body;
   const line_items = body?.orderItems?.map((item) => {
@@ -27,7 +36,7 @@ export const stripeCheckoutSession = catchAsyncErrors(async (req, res, next) => 
 
   const shipping_rate = body?.itemsPrice >= 200 ? "shr_1TMovTEbeXNNgXxDGtuHgrRG" : "shr_1TMowCEbeXNNgXxDsA1QIaWj"
 
-  const session = await stripe.checkout.sessions.create({
+  const session = await stripeClient.checkout.sessions.create({
     payment_method_types: ['card'],
     success_url: `${process.env.FRONTEND_URL}/me/orders`,
     cancel_url: `${process.env.FRONTEND_URL}`,
@@ -49,12 +58,12 @@ export const stripeCheckoutSession = catchAsyncErrors(async (req, res, next) => 
   });
 });
 
-const getOrderItems = async (line_items) => {
+const getOrderItems = async (line_items, stripeClient) => {
   return new Promise((resolve, reject) => { 
     let cartItems = [];
 
     line_items?.data?.forEach(async (item) => {
-      const product = await stripe.products.retrieve(item.price.product);
+      const product = await stripeClient.products.retrieve(item.price.product);
       const productId = product.metadata.productId;
 
       cartItems.push({
@@ -74,17 +83,18 @@ const getOrderItems = async (line_items) => {
 //create new order after payment => /api/v1/payment/webhook
 export const stripeWebhook = catchAsyncErrors(async (req, res, next) => {
   try{
+      const stripeClient = getStripe();
       const signature=req.headers["stripe-signature"];
 
-      const event=stripe.webhooks.constructEvent(req.rawBody,signature, process.env.STRIPE_WEBHOOK_SECRET);
+      const event=stripeClient.webhooks.constructEvent(req.rawBody,signature, process.env.STRIPE_WEBHOOK_SECRET);
 
 
       if(event.type === 'checkout.session.completed'){
         const session=event.data.object;
         
-        const line_items=await stripe.checkout.sessions.listLineItems(session.id);
+        const line_items=await stripeClient.checkout.sessions.listLineItems(session.id);
 
-        const orderItems=await getOrderItems(line_items);
+        const orderItems=await getOrderItems(line_items, stripeClient);
         const user=session.client_reference_id;
 
         const totalAmount=session.amount_total / 100;
