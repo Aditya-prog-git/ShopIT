@@ -17,7 +17,7 @@ const PaymentMethod = () => {
 
   const [createNewOrder, { error, isSuccess }] = useCreateNewOrderMutation();
 
-  const [ stripeCheckoutSession, { data: checkoutData, error: checkoutError} ] = useStripeCheckoutSessionMutation();
+  const [ stripeCheckoutSession, { data: checkoutData, error: checkoutError, isLoading} ] = useStripeCheckoutSessionMutation();
 
   useEffect(() => {
     if(checkoutData){
@@ -116,15 +116,15 @@ const PaymentMethod = () => {
                 type="radio"
                 name="payment_mode"
                 id="cardradio"
-                value="Card"
-                onChange={(e) => setMethod("Card")}
+                value="card"
+                onChange={(e) => setMethod("card")}
               />
               <label className="form-check-label" htmlFor="cardradio">
                 Card - VISA, MasterCard
               </label>
             </div>
 
-            <button id="shipping_btn" type="submit" className="btn py-2 w-100">
+            <button id="shipping_btn" type="submit" className="btn py-2 w-100" disabled={isLoading}>
               CONTINUE
             </button>
           </form>
