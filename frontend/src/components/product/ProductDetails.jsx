@@ -26,7 +26,7 @@ const ProductDetails = () => {
     if(isError){
       toast.error(error?.data?.message);
     }
-  }, [isError]);
+  }, [isError, error]);
 
   const increseQty = () => {
     const count = document.querySelector(".count");
@@ -75,16 +75,18 @@ const ProductDetails = () => {
           {product?.images?.map((img) => {
             return (
               <div className="col-2 ms-4 mt-2" key={img?.url}>
-                <a role="button">
+                <button
+                  onClick={(e) => setActiveImg(img.url)}
+                  style={{ border: 'none', background: 'none', padding: 0, cursor: 'pointer' }}
+                >
                   <img
                     className={`d-block border rounded p-3 cursor-pointer ${img.url === activeImg ? "border-warning" : ""}`}
                     height="100"
                     width="100"
                     src={img?.url}
-                    alt={img?.url}
-                    onClick={(e) => setActiveImg(img.url)}
+                    alt={product?.name}
                   />
-                </a>
+                </button>
               </div>
             );
           })}

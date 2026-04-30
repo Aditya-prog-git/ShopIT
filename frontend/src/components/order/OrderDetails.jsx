@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
-import { Link,  useParams } from 'react-router-dom';
+import {Link, useParams } from 'react-router-dom';
+
 import Loader from '../layout/Loader';
 import toast from 'react-hot-toast';
 import MetaData from '../layout/MetaData'
@@ -9,9 +10,9 @@ const OrderDetails = () => {
 
     const params = useParams();
     const { data, isLoading, error } = useOrderDetailsQuery(params?.id);
-    const order = data?.order || {};
+    const order = data?.order || {}; 
 
-    const {shippingInfo, orderItems, paymentInfo, user, totalPrice, orderStatus} = order;
+    const {shippingInfo, orderItems, paymentInfo, user, totalAmount, orderStatus, } = order;
 
     useEffect(() => {
         if(error) {
@@ -20,7 +21,7 @@ const OrderDetails = () => {
     }, [error]); 
  
     if(isLoading) return <Loader />;
-    
+
   return (
     <>
     <MetaData title={"Order Details"}/>
@@ -40,13 +41,13 @@ const OrderDetails = () => {
             </tr>
             <tr>
               <th scope="row">Status</th>
-              <td className={String(order.orderStatus).includes("Delivered") ? 'greenColor' : "redColor"}>
-                <b>{order.orderStatus}</b>
+              <td className={String(orderStatus).includes("Delivered") ? 'greenColor' : "redColor"}>
+                <b>{orderStatus}</b>
               </td>
             </tr>
             <tr>
               <th scope="row">Date</th>
-              <td>October 1, 2023, 10:30 AM</td>
+              <td>{new Date(order?.createdAt).toLocaleString("en-US")}</td>
             </tr>
           </tbody>
         </table>
@@ -56,15 +57,15 @@ const OrderDetails = () => {
           <tbody>
             <tr>
               <th scope="row">Name</th>
-              <td>John Doe</td>
+              <td>{user.name}</td>
             </tr>
             <tr>
               <th scope="row">Phone No</th>
-              <td>+1 123-456-7890</td>
+              <td>{shippingInfo?.phoneNo}</td>
             </tr>
             <tr>
               <th scope="row">Address</th>
-              <td>123 Main Street, City, Postal Code, Country</td>
+              <td>{shippingInfo?.address}, {shippingInfo?.city}, {shippingInfo?.zipCode}, {shippingInfo?.country}</td>
             </tr>
           </tbody>
         </table>
@@ -75,20 +76,20 @@ const OrderDetails = () => {
             <tr>
               <th scope="row">Status</th>
               <td className="greenColor">
-                <b>PAID</b>
+                <b>{paymentInfo?.status}</b>
               </td>
             </tr>
             <tr>
               <th scope="row">Method</th>
-              <td>Credit Card</td>
+              <td>{order?.paymentMethod}</td>
             </tr>
             <tr>
               <th scope="row">Stripe ID</th>
-              <td>stripe-id</td>
+              <td>{paymentInfo?.id || "Nill "}</td>
             </tr>
             <tr>
               <th scope="row">Amount Paid</th>
-              <td>$250.00</td>
+              <td>${totalAmount}</td>
             </tr>
           </tbody>
         </table>
@@ -97,28 +98,30 @@ const OrderDetails = () => {
 
         <hr />
         <div className="cart-item my-1">
-          <div className="row my-5">
+          {orderItems?.map((item) => (
+            <div className="row my-5">
             <div className="col-4 col-lg-2">
               <img
-                src="../images/product.jpg"
-                alt="Product Name"
+                src={item?.image}
+                alt={item?.name}
                 height="45"
                 width="65"
               />
             </div>
 
             <div className="col-5 col-lg-5">
-              <a href="/products/product-id">Product Name</a>
+              <Link to={`/products/${item?.product}`}>{item?.name}</Link>
             </div>
 
             <div className="col-4 col-lg-2 mt-4 mt-lg-0">
-              <p>$50.00</p>
+              <p>{item?.price}</p>
             </div>
 
             <div className="col-4 col-lg-3 mt-4 mt-lg-0">
-              <p>2 Piece(s)</p>
+              <p>{item?.quantity} Piece(s)</p>
             </div>
           </div>
+          ))}
         </div>
         <hr />
       </div>

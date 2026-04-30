@@ -33,7 +33,7 @@ const Home = () => {
     if(isError){
       toast.error(error?.data?.message);
     }
-  }, [isError])
+  }, [isError, error])
 
   if(isLoading) return <Loader />
   return (

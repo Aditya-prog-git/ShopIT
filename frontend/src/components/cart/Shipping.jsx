@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { countries } from 'countries-list'
 import { useDispatch, useSelector } from 'react-redux';
 import { saveShippingInfo } from '../../redux/features/cartSlice';
-import { Meta, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import MetaData from '../layout/MetaData';
 import CheckoutSteps from './CheckoutSteps';
 

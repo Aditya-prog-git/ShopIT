@@ -16,7 +16,7 @@ const Header = () => {
   //isSuccess is used kyunki multiple timeslogout krna pd rha tha!!
   useEffect(() => {
     if(isSuccess)navigate(0); //After logout refresh page//
-  }, [isSuccess])
+  }, [isSuccess, navigate])
 
   const logoutHandler = () => {
     logout();
