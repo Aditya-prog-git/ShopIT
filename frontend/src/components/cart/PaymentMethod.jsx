@@ -5,11 +5,12 @@ import CheckoutSteps from './CheckoutSteps'
 import { calculateCost } from '../helpers/helpers'
 import { useCreateNewOrderMutation, useStripeCheckoutSessionMutation } from '../../redux/api/orderApi'
 import { toast } from 'react-hot-toast'
-// import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 const PaymentMethod = () => {
 
   const [method, setMethod] = useState('')
+  const navigate = useNavigate()
 
   // const navigate = useNavigate();
 
@@ -39,9 +40,9 @@ const PaymentMethod = () => {
     }
 
     if (isSuccess) {
-      window.location.href = "/"
+      navigate("/me/orders?order_success=true");
     }
-  }, [error, isSuccess])
+  }, [error, isSuccess, navigate]);
 
   const submitHandler = (e) => {
     e.preventDefault();

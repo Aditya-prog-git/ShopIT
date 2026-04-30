@@ -14,6 +14,8 @@ const OrderDetails = () => {
 
     const {shippingInfo, orderItems, paymentInfo, user, totalAmount, orderStatus, } = order;
 
+    const isPaid= paymentInfo?.status === "paid" ? true : false; 
+
     useEffect(() => {
         if(error) {
             toast.error(error?.data?.message)
@@ -75,7 +77,7 @@ const OrderDetails = () => {
           <tbody>
             <tr>
               <th scope="row">Status</th>
-              <td className="greenColor">
+              <td className={isPaid? "greenColor" : "redColor"}>
                 <b>{paymentInfo?.status}</b>
               </td>
             </tr>

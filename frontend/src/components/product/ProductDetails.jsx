@@ -4,8 +4,10 @@ import { useGetProductDetailsQuery } from '../../redux/api/productsApi';
 import MyStars from "../MyStars";
 import toast from 'react-hot-toast';
 import Loader from '../layout/Loader';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setCartItem } from '../../redux/features/cartSlice';
+import NewReview from '../reviews/NewReview';
+import ListReviews from '../reviews/ListReviews';
 
 const ProductDetails = () => {
   const params = useParams();
@@ -16,7 +18,7 @@ const ProductDetails = () => {
 
   const { data, isLoading, error, isError } = useGetProductDetailsQuery(params?.id);
   const product = data?.product;
-
+  const {isAuthenticated}= useSelector((state) => state?.auth);
 
   useEffect(() => {
     setActiveImg(product?.images[0] ? product?.images[0]?.url : '/images/default_product.png');
@@ -60,6 +62,7 @@ const ProductDetails = () => {
   if(isLoading)return <Loader />;   
 
   return (
+    <>
     <div className="row d-flex justify-content-around">
       <div className="col-12 col-lg-5 img-fluid" id="product_image">
         <div className="p-3">
@@ -146,12 +149,19 @@ const ProductDetails = () => {
         <hr />
         <p id="product_seller mb-3">Sold by: <strong>{product?.seller}</strong></p>
 
-        <div className="alert alert-danger my-5" type="alert">
-          Login to post your review.
-        </div>
+          {isAuthenticated ? (
+            <NewReview productId={product?._id}/>
+          ) : (
+            <div className="alert alert-danger my-5" type="alert">
+              Login to post your review.
+            </div>
+          )}
       </div>
     </div>
-  )
-}
+    {product?.reviews?.length > 0 && (<ListReviews reviews={product?.reviews} />
+      )}
+    </>
+  );
+};
 
 export default ProductDetails
