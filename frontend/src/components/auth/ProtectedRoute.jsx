@@ -3,9 +3,9 @@ import { useSelector } from 'react-redux'
 import { Navigate } from 'react-router-dom'
 import Loader from '../layout/Loader'
 
-const ProtectedRoute = ({ children }) => {
+const ProtectedRoute = ({ admin, children }) => {
 
-  const { isAuthenticated, loading } = useSelector((state) => state.auth)
+  const { isAuthenticated, user, loading } = useSelector((state) => state.auth)
 
 
   // iska logic ==> when we refresh /profile page it will first come on PrectedRoute kyunki Profile is child of ProtectedRoute. Ab api se daata fethc hoga(userApi) waha pr isAuthenticated false hai, to navigate hoke /login pe jayega(see below). Login pr jane ke baad waha pr isAuthenticated = true, so redirect to "/"(refer Login.jsx). So, to avoid this we introduced loading in slice and this logic. Refer lec 81.
@@ -13,6 +13,10 @@ const ProtectedRoute = ({ children }) => {
 
   if(!isAuthenticated) {
     return <Navigate to="/login" replace />
+  }
+
+  if(admin && user?.role !== "admin") {
+    return <Navigate to="/" replace />
   }
 
   return children
