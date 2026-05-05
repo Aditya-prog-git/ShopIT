@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 export const productApi = createApi({
   reducerPath: 'productApi',
   baseQuery: fetchBaseQuery({ baseUrl: "/api/v1" }),
-  tagTypes: ["Products"], 
+  tagTypes: ["Products", "AdminProducts"], 
   keepUnusedDataFor: 30,
   endpoints: (builder) => ({
     getProducts: builder.query({
@@ -33,10 +33,67 @@ export const productApi = createApi({
       },
       invalidatesTags: ["Products"],
     }),
+
     canUserReview: builder.query({
       query: (productId) => `/can_review/?productId=${productId}`,
+    }),
+
+    getAdminProducts: builder.query({
+      query: () => `/admin/products`,
+      providesTags: ["AdminProducts"],
+    }),
+
+    createProduct: builder.mutation({
+      query(body) {
+        return {
+          url: "/admin/products",
+          method: "POST",
+          body,
+        };
+      },
+      invalidatesTags: ["AdminProducts"],
+    }),
+
+    upateProduct: builder.mutation({
+      query({id, body}) {
+        return {
+          url: `/admin/products/${id}`,
+          method: "PUT",
+          body,
+        };
+      },
+      invalidatesTags: ["Product", "AdminProducts"],
+    }),
+
+    uploadProductImages: builder.mutation({
+      query({id, body}) {
+        return {
+          url: `/admin/products/${id}/upload_images`,
+          method: "PUT",
+          body,
+        };
+      },
+      invalidatesTags: ["Product"],
+    }),
+
+    deleteProduct: builder.mutation({
+      query(id) {
+        return {
+          url: `/admin/products/${id}`,
+          method: "DELETE",
+        };
+      },
+      invalidatesTags: ["AdminProducts"],
     }),
   }),
 });
 
-export const { useGetProductsQuery, useGetProductDetailsQuery, useSubmitReviewMutation, useCanUserReviewQuery } = productApi;
+export const { useGetProductsQuery, 
+  useGetProductDetailsQuery, 
+  useSubmitReviewMutation, 
+  useCanUserReviewQuery,
+  useGetAdminProductsQuery,
+  useCreateProductMutation,
+  useUpateProductMutation, 
+  useUploadProductImagesMutation, 
+  useDeleteProductMutation, } = productApi;
