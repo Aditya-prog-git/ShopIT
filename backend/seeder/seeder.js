@@ -20,6 +20,45 @@ const seedProducts = async () => {
       console.log('Admin user created');
     }
 
+    // Create second admin user
+    let adminUser2 = await User.findOne({ email: 'admin2@shopit.com' });
+    if (!adminUser2) {
+      adminUser2 = new User({
+        name: 'Admin Two',
+        email: 'admin2@shopit.com',
+        password: 'admin@123',
+        role: 'admin'
+      });
+      await adminUser2.save();
+      console.log('Second admin user created');
+    }
+
+    // Create regular user
+    let regularUser = await User.findOne({ email: 'user@shopit.com' });
+    if (!regularUser) {
+      regularUser = new User({
+        name: 'John Doe',
+        email: 'user@shopit.com',
+        password: 'user@123',
+        role: 'user'
+      });
+      await regularUser.save();
+      console.log('Regular user created');
+    }
+
+    // Create another regular user
+    let regularUser2 = await User.findOne({ email: 'Kushagra@shopit.com' });
+    if (!regularUser2) {
+      regularUser2 = new User({
+        name: 'Kushagra data',
+        email: 'Kushagra@shopit.com',
+        password: 'kush@123',
+        role: 'user'
+      });
+      await regularUser2.save();
+      console.log('Second regular user created');
+    }
+
     await Product.deleteMany();
     console.log("Products deleted");
 
