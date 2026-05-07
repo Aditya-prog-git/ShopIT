@@ -11,7 +11,11 @@ const Login = () => {
 
   const navigate = useNavigate();
 
+<<<<<<< HEAD
   const [login, { isLoading, error, data }] = useLoginMutation();
+=======
+  const [login, { isLoading, error }] = useLoginMutation();
+>>>>>>> 998ca10ab58964e6ded975519753f82723124b1a
   
   const { isAuthenticated } = useSelector((state) => state.auth)
 
@@ -21,7 +25,11 @@ const Login = () => {
     if(error) {
       toast.error(error?.data?.message)
     }
+<<<<<<< HEAD
   }, [error, isAuthenticated])
+=======
+  }, [error, isAuthenticated, navigate]);
+>>>>>>> 998ca10ab58964e6ded975519753f82723124b1a
 
   const submitHandler = (e) => {
     e.preventDefault();

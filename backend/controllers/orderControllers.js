@@ -76,16 +76,34 @@ export const updateOrder = catchAsyncErrors(async (req, res, next) => {
     return next(new ErrorHandler("You have already delivered this order", 400));
   }
 
+<<<<<<< HEAD
   order?.orderItems.forEach(async (item) => {
     const product = await Product.findById(item?.product?.toString());
 
     if(!product) {
       return next(new ErrorHandler("Product not found with this ID", 404));
+=======
+  let productNotFound = false;
+
+  for(const item of order.orderItems) {
+    const product = await Product.findById(item?.product?.toString());
+    if(!product) {
+      productNotFound = true;
+      break;
+>>>>>>> 998ca10ab58964e6ded975519753f82723124b1a
     }
 
     product.stock -= item.quantity;
     await product.save({ validateBeforeSave: false });
+<<<<<<< HEAD
   });
+=======
+  };
+
+    if(productNotFound) {
+      return next(new ErrorHandler("No Product found with one or more IDs", 404));
+    }
+>>>>>>> 998ca10ab58964e6ded975519753f82723124b1a
 
   order.orderStatus = req.body.status;
   order.deliveredAt = Date.now();
@@ -110,4 +128,93 @@ export const deleteOrder = catchAsyncErrors(async (req, res, next) => {
   res.status(200).json({
     success: true,
   });
+<<<<<<< HEAD
+=======
+});
+
+  async function getSalesData(startDate, endDate) {
+    const salesData = await Order.aggregate([
+    {
+      // stage 1 - Filter Results
+      $match: {
+        createdAt: {
+          $gte: new Date(startDate),
+          $lte: new Date(endDate),
+        },
+      },  
+    },
+    {
+      // stage 2 - Group Data
+      $group: {
+        _id:{
+          date: { $dateToString: { format: "%Y-%m-%d", date: "$createdAt" } },
+        },
+        totalSales: {$sum: "$totalAmount"},
+        numOrders: {$sum: 1},
+      },
+    },
+  ]);
+
+  // Create a map to hold the sales data and num of order by date
+  const salesMap = new Map();
+  let totalSales = 0;
+  let totalNumOrders = 0;
+
+  salesData.forEach((entry) => {
+    const date = entry?._id.date;
+    const sales = entry?.totalSales;
+    const numOrders = entry?.numOrders;
+
+    salesMap.set(date, { sales, numOrders });
+    totalSales += sales;
+    totalNumOrders += numOrders;
+  });
+
+  //Generate an array of dates between startDate and endDate
+  const datesBetween=getDatesBetween(startDate, endDate);
+
+  const finalSalesData = datesBetween.map((date) => ({
+    date,
+    sales: (salesMap.get(date) || {sales: 0}).sales,
+    numOrders: (salesMap.get(date) || {numOrders: 0}).numOrders,
+  }));
+
+  return {salesData: finalSalesData, totalSales, totalNumOrders};
+} 
+
+function getDatesBetween(startDate, endDate) {
+  const dates = [];
+  const currentDate = new Date(startDate);
+  const end = new Date(endDate);
+
+  console.log("Start:", startDate, "End:", endDate);
+  console.log("CurrentDate:", currentDate.getTime(), "End:", end.getTime());
+
+  while(currentDate.getTime() <= end.getTime()) {
+    const formattedDate = currentDate.toISOString().split("T")[0];
+    dates.push(formattedDate);
+    currentDate.setDate(currentDate.getDate() + 1);
+  }
+  
+  console.log("Dates array:", dates);
+  return dates;
+}
+
+// Get Sales Order => /api/v1/admin/get_sales
+export const getSales = catchAsyncErrors(async (req, res, next) => {
+  
+  const startDate = new Date(req.query.startDate);
+  const endDate = new Date(req.query.endDate);
+
+  startDate.setUTCHours(0, 0, 0, 0);
+  endDate.setUTCHours(23, 59, 59, 999);
+
+  const {salesData, totalSales, totalNumOrders}=await getSalesData(startDate, endDate);
+
+  res.status(200).json({
+    totalSales,
+    totalNumOrders,
+    sales: salesData,
+  });
+>>>>>>> 998ca10ab58964e6ded975519753f82723124b1a
 });

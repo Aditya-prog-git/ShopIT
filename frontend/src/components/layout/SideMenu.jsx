@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Link, useLocation } from "react-router-dom"
 
+<<<<<<< HEAD
 const SideMenu = () => {
 
   const menuItems = [
@@ -25,6 +26,9 @@ const SideMenu = () => {
       icon: "fas fa-lock",
     },
   ]
+=======
+const SideMenu = ({menuItems}) => {
+>>>>>>> 998ca10ab58964e6ded975519753f82723124b1a
 
   const location = useLocation();
 

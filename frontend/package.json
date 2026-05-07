@@ -7,7 +7,16 @@
     "countries-list": "^3.1.1",
     "country-list": "^2.3.0",
     "cra-template": "1.2.0",
+<<<<<<< HEAD
     "react": "^18.3.1",
+=======
+    "html2canvas": "^1.4.1",
+    "jspdf": "^4.2.1",
+    "mdbreact": "^5.2.0",
+    "react": "^18.3.1",
+    "react-chartjs-2": "^5.3.1",
+    "react-datepicker": "^9.1.0",
+>>>>>>> 998ca10ab58964e6ded975519753f82723124b1a
     "react-dom": "^18.3.1",
     "react-helmet": "^6.1.0",
     "react-hot-toast": "^2.5.1",
@@ -17,6 +26,10 @@
     "react-router-dom": "^7.1.1",
     "react-scripts": "5.0.1",
     "react-select-country-list": "^2.2.3",
+<<<<<<< HEAD
+=======
+    "react-star-ratings": "^2.3.0",
+>>>>>>> 998ca10ab58964e6ded975519753f82723124b1a
     "react-stars": "^2.2.5"
   },
   "scripts": {

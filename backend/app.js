@@ -1,5 +1,12 @@
 import express from 'express';
 import dotenv from 'dotenv';
+<<<<<<< HEAD
+=======
+
+//load env variables first
+dotenv.config({ path: 'backend/config/.env' });
+
+>>>>>>> 998ca10ab58964e6ded975519753f82723124b1a
 import { connectDatabase } from './config/dbConnect.js';
 import productRoutes from './routes/products.js';
 import errroMiddleware from './middlewares/errors.js';
@@ -16,13 +23,20 @@ process.on('uncaughtException', err => {
 });
 
 const app = express();
+<<<<<<< HEAD
 dotenv.config({ path: 'backend/config/config.env' });
+=======
+>>>>>>> 998ca10ab58964e6ded975519753f82723124b1a
 
 //connecting to database
 connectDatabase();
 
 //json parser
+<<<<<<< HEAD
 app.use(express.json({ limit: '10mb' }));
+=======
+app.use(express.json({ limit: '10mb', verify:(req, res, buf)=> {req.rawBody=buf.toString()} }));
+>>>>>>> 998ca10ab58964e6ded975519753f82723124b1a
 //cookies parser
 app.use(cookieParser());
 

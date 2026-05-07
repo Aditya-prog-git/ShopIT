@@ -164,11 +164,19 @@ footer {
 }
 
 .redColor {
+<<<<<<< HEAD
   color: red;
 }
 
 .greenColor {
   color: green;
+=======
+  color: red !important;
+}
+
+.greenColor {
+  color: green !important;
+>>>>>>> 998ca10ab58964e6ded975519753f82723124b1a
 }
 
 #product_image {

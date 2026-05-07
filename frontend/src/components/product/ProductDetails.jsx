@@ -4,8 +4,15 @@ import { useGetProductDetailsQuery } from '../../redux/api/productsApi';
 import MyStars from "../MyStars";
 import toast from 'react-hot-toast';
 import Loader from '../layout/Loader';
+<<<<<<< HEAD
 import { useDispatch } from 'react-redux';
 import { setCartItem } from '../../redux/features/cartSlice';
+=======
+import { useDispatch, useSelector } from 'react-redux';
+import { setCartItem } from '../../redux/features/cartSlice';
+import NewReview from '../reviews/NewReview';
+import ListReviews from '../reviews/ListReviews';
+>>>>>>> 998ca10ab58964e6ded975519753f82723124b1a
 
 const ProductDetails = () => {
   const params = useParams();
@@ -16,7 +23,11 @@ const ProductDetails = () => {
 
   const { data, isLoading, error, isError } = useGetProductDetailsQuery(params?.id);
   const product = data?.product;
+<<<<<<< HEAD
 
+=======
+  const {isAuthenticated}= useSelector((state) => state?.auth);
+>>>>>>> 998ca10ab58964e6ded975519753f82723124b1a
 
   useEffect(() => {
     setActiveImg(product?.images[0] ? product?.images[0]?.url : '/images/default_product.png');
@@ -26,7 +37,11 @@ const ProductDetails = () => {
     if(isError){
       toast.error(error?.data?.message);
     }
+<<<<<<< HEAD
   }, [isError]);
+=======
+  }, [isError, error]);
+>>>>>>> 998ca10ab58964e6ded975519753f82723124b1a
 
   const increseQty = () => {
     const count = document.querySelector(".count");
@@ -60,6 +75,10 @@ const ProductDetails = () => {
   if(isLoading)return <Loader />;   
 
   return (
+<<<<<<< HEAD
+=======
+    <>
+>>>>>>> 998ca10ab58964e6ded975519753f82723124b1a
     <div className="row d-flex justify-content-around">
       <div className="col-12 col-lg-5 img-fluid" id="product_image">
         <div className="p-3">
@@ -75,16 +94,29 @@ const ProductDetails = () => {
           {product?.images?.map((img) => {
             return (
               <div className="col-2 ms-4 mt-2" key={img?.url}>
+<<<<<<< HEAD
                 <a role="button">
+=======
+                <button
+                  onClick={(e) => setActiveImg(img.url)}
+                  style={{ border: 'none', background: 'none', padding: 0, cursor: 'pointer' }}
+                >
+>>>>>>> 998ca10ab58964e6ded975519753f82723124b1a
                   <img
                     className={`d-block border rounded p-3 cursor-pointer ${img.url === activeImg ? "border-warning" : ""}`}
                     height="100"
                     width="100"
                     src={img?.url}
+<<<<<<< HEAD
                     alt={img?.url}
                     onClick={(e) => setActiveImg(img.url)}
                   />
                 </a>
+=======
+                    alt={product?.name}
+                  />
+                </button>
+>>>>>>> 998ca10ab58964e6ded975519753f82723124b1a
               </div>
             );
           })}
@@ -144,6 +176,7 @@ const ProductDetails = () => {
         <hr />
         <p id="product_seller mb-3">Sold by: <strong>{product?.seller}</strong></p>
 
+<<<<<<< HEAD
         <div className="alert alert-danger my-5" type="alert">
           Login to post your review.
         </div>
@@ -151,5 +184,21 @@ const ProductDetails = () => {
     </div>
   )
 }
+=======
+          {isAuthenticated ? (
+            <NewReview productId={product?._id}/>
+          ) : (
+            <div className="alert alert-danger my-5" type="alert">
+              Login to post your review.
+            </div>
+          )}
+      </div>
+    </div>
+    {product?.reviews?.length > 0 && (<ListReviews reviews={product?.reviews} />
+      )}
+    </>
+  );
+};
+>>>>>>> 998ca10ab58964e6ded975519753f82723124b1a
 
 export default ProductDetails

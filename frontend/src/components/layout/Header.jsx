@@ -16,7 +16,11 @@ const Header = () => {
   //isSuccess is used kyunki multiple timeslogout krna pd rha tha!!
   useEffect(() => {
     if(isSuccess)navigate(0); //After logout refresh page//
+<<<<<<< HEAD
   }, [isSuccess])
+=======
+  }, [isSuccess, navigate])
+>>>>>>> 998ca10ab58964e6ded975519753f82723124b1a
 
   const logoutHandler = () => {
     logout();
@@ -63,8 +67,14 @@ const Header = () => {
               <span>{user?.name}</span>
             </button>
             <div className="dropdown-menu w-100" aria-labelledby="dropDownMenuButton">
+<<<<<<< HEAD
               <Link className="dropdown-item" to="/admin/dashboard"> Dashboard </Link>
 
+=======
+
+              {user?.role === "admin" && (<Link className="dropdown-item" to="/admin/dashboard"> Dashboard </Link>)}
+              
+>>>>>>> 998ca10ab58964e6ded975519753f82723124b1a
               <Link className="dropdown-item" to="/me/orders"> Orders </Link>
 
               <Link className="dropdown-item" to="/me/profile"> Profile </Link>

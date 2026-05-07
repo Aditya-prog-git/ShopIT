@@ -39,6 +39,14 @@ export const cartSlice = createSlice({
       localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
     },
 
+<<<<<<< HEAD
+=======
+    clearCart: (state, action) => {
+      localStorage.removeItem("cartItems");
+      state.cartItems = [];
+    },
+
+>>>>>>> 998ca10ab58964e6ded975519753f82723124b1a
     saveShippingInfo: (state, action) => {
       state.shippingInfo = action.payload;
 
@@ -50,4 +58,8 @@ export const cartSlice = createSlice({
 export default cartSlice.reducer;
 
 
+<<<<<<< HEAD
 export const { setCartItem, removeCartItem,saveShippingInfo } = cartSlice.actions;
+=======
+export const { setCartItem, removeCartItem,saveShippingInfo, clearCart } = cartSlice.actions;
+>>>>>>> 998ca10ab58964e6ded975519753f82723124b1a

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
 import './App.css';
 import Home from './components/Home';
@@ -19,6 +20,22 @@ import ConfirmOrder from "./components/cart/ConfirmOrder";
 import PaymentMethod from "./components/cart/PaymentMethod";
 
 function App() {
+=======
+import {BrowserRouter as Router, Routes} from "react-router-dom";
+import './App.css';
+
+import Footer from './components/layout/Footer';
+import Header from './components/layout/Header';
+import { Toaster } from 'react-hot-toast';
+import useUserRoutes from "./components/routes/userRoutes";
+import useAdminRoutes from "./components/routes/adminRoutes";
+
+function App() {
+
+  const userRoutes = useUserRoutes();
+  const adminRoutes = useAdminRoutes();
+
+>>>>>>> 998ca10ab58964e6ded975519753f82723124b1a
   return (
     <Router>
       <div className="App">
@@ -27,6 +44,7 @@ function App() {
 
         <div className="container">
           <Routes>
+<<<<<<< HEAD
             <Route path="/" element={<Home />} />
             <Route path="/product/:id" element={<ProductDetails />} />
             <Route path="/login" element={<Login />} />
@@ -75,6 +93,10 @@ function App() {
                 <PaymentMethod />
               </ProtectedRoute>
               } />
+=======
+            {userRoutes}
+            {adminRoutes}
+>>>>>>> 998ca10ab58964e6ded975519753f82723124b1a
           </Routes>
         </div>
 
