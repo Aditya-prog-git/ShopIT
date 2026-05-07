@@ -1,5 +1,5 @@
 import express from 'express';
-import { getProducts, newProduct, getSingleProduct, updateSingleProduct, deleteSingleProduct, createProductReview, getProductReview, deleteReview } from '../controllers/productControllers.js';
+// import { getProducts, newProduct, getSingleProduct, updateSingleProduct, deleteSingleProduct, createProductReview, getProductReview, deleteReview } from '../controllers/productControllers.js';
 import { getProducts, getAdminProducts, newProduct, getSingleProduct, updateSingleProduct, deleteSingleProduct, createProductReview, getProductReview, deleteReview, canUserReview, uploadProductImages } from '../controllers/productControllers.js';
 import { authorizeRoles, isAuthenticatedUser } from '../middlewares/auth.js';
 const router = express.Router();
