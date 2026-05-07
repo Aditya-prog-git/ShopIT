@@ -76,13 +76,6 @@ export const updateOrder = catchAsyncErrors(async (req, res, next) => {
     return next(new ErrorHandler("You have already delivered this order", 400));
   }
 
-<<<<<<< HEAD
-  order?.orderItems.forEach(async (item) => {
-    const product = await Product.findById(item?.product?.toString());
-
-    if(!product) {
-      return next(new ErrorHandler("Product not found with this ID", 404));
-=======
   let productNotFound = false;
 
   for(const item of order.orderItems) {
@@ -90,20 +83,15 @@ export const updateOrder = catchAsyncErrors(async (req, res, next) => {
     if(!product) {
       productNotFound = true;
       break;
->>>>>>> 998ca10ab58964e6ded975519753f82723124b1a
     }
 
     product.stock -= item.quantity;
     await product.save({ validateBeforeSave: false });
-<<<<<<< HEAD
-  });
-=======
   };
 
     if(productNotFound) {
       return next(new ErrorHandler("No Product found with one or more IDs", 404));
     }
->>>>>>> 998ca10ab58964e6ded975519753f82723124b1a
 
   order.orderStatus = req.body.status;
   order.deliveredAt = Date.now();
@@ -128,8 +116,6 @@ export const deleteOrder = catchAsyncErrors(async (req, res, next) => {
   res.status(200).json({
     success: true,
   });
-<<<<<<< HEAD
-=======
 });
 
   async function getSalesData(startDate, endDate) {
@@ -216,5 +202,4 @@ export const getSales = catchAsyncErrors(async (req, res, next) => {
     totalNumOrders,
     sales: salesData,
   });
->>>>>>> 998ca10ab58964e6ded975519753f82723124b1a
 });

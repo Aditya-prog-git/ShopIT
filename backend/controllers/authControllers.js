@@ -243,14 +243,10 @@ export const deleteUsersDetails = catchAsyncError(async(req, res, next) => {
     return next(new ErrorHandler(`User not found with id ${req.params.id}`, 404));
   }
 
-<<<<<<< HEAD
-  //TODO remove user avatar from cloudinary
-=======
   //Remove user avatar from cloudinary
   if(users?.avatar?.public_id) {
     await delete_file(users?.avatar?.public_id);
   }
->>>>>>> 998ca10ab58964e6ded975519753f82723124b1a
 
   await users.deleteOne();
   

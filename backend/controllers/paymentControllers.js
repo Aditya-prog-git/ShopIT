@@ -1,11 +1,4 @@
 import catchAsyncErrors from '../middlewares/catchAsyncErrors.js'
-<<<<<<< HEAD
-import Stripe  from 'stripe'
-const stripe = Stripe(process.env.STRIPE_SECRET_KEY)
-
-//create stripe checkout session => /api/v1/payment/checkout_session
-export const stripeCheckoutSession = catchAsyncErrors(async (req, res, next) => {
-=======
 import Order from '../models/order.js';
 import Stripe  from 'stripe'
 
@@ -21,7 +14,6 @@ const getStripe = () => {
 //create stripe checkout session => /api/v1/payment/checkout_session
 export const stripeCheckoutSession = catchAsyncErrors(async (req, res, next) => {
   const stripeClient = getStripe();
->>>>>>> 998ca10ab58964e6ded975519753f82723124b1a
 
   const body = req?.body;
   const line_items = body?.orderItems?.map((item) => {
@@ -35,30 +27,18 @@ export const stripeCheckoutSession = catchAsyncErrors(async (req, res, next) => 
         },
         unit_amount: item?.price * 100
       },
-<<<<<<< HEAD
-      tax_rates: ["txr_1Qg5c0CpPrkeZ2lEflbtoSab"],
-=======
       tax_rates: ["txr_1TMqKeEbeXNNgXxD60LVE3iC"],
->>>>>>> 998ca10ab58964e6ded975519753f82723124b1a
       quantity: item?.quantity,
     }
   })
 
   const shippingInfo = body?.shippingInfo;
 
-<<<<<<< HEAD
-  const shipping_rate = body?.itemsPrice >= 200 ? "shr_1Qg5UUCpPrkeZ2lEQPsBuphJ" : "shr_1Qg5V2CpPrkeZ2lEOe3wOnUu"
-
-  const session = await stripe.checkout.sessions.create({
-    payment_method_types: ['card'],
-    success_url: `${process.env.FRONTEND_URL}/me/orders`,
-=======
   const shipping_rate = body?.itemsPrice >= 200 ? "shr_1TMovTEbeXNNgXxDGtuHgrRG" : "shr_1TMowCEbeXNNgXxDsA1QIaWj"
 
   const session = await stripeClient.checkout.sessions.create({
     payment_method_types: ['card'],
     success_url: `${process.env.FRONTEND_URL}/me/orders?order_success=true`,
->>>>>>> 998ca10ab58964e6ded975519753f82723124b1a
     cancel_url: `${process.env.FRONTEND_URL}`,
     customer_email: req?.user?.email,
     client_reference_id: req?.user?._id?.toString(),
@@ -69,13 +49,6 @@ export const stripeCheckoutSession = catchAsyncErrors(async (req, res, next) => 
     }],
     line_items,
   })
-<<<<<<< HEAD
-  console.log(session)
-  res.status(200).json({
-    url: session.url,
-  })
-})
-=======
   console.log("==========================")
   console.log(session)
   console.log("==========================")
@@ -170,4 +143,3 @@ export const stripeWebhook = catchAsyncErrors(async (req, res, next) => {
       console.log("=========================");
     }
 });
->>>>>>> 998ca10ab58964e6ded975519753f82723124b1a
