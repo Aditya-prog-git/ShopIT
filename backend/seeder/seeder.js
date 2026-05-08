@@ -1,22 +1,12 @@
 import mongoose from "mongoose";
 import products from "./data.js";
-<<<<<<< HEAD
-=======
 import User from "../models/user.js";
->>>>>>> 998ca10ab58964e6ded975519753f82723124b1a
 import Product from "../models/product.js";
 
 const seedProducts = async () => {
   try{
     await mongoose.connect("mongodb://127.0.0.1:27017/shopit-v2");
 
-<<<<<<< HEAD
-    await Product.deleteMany();
-    console.log("Products deleted");
-
-    await Product.insertMany(products);
-    console.log("Products added");
-=======
     // Create or get admin user
     let adminUser = await User.findOne({ email: 'admin@shopit.com' });
     if (!adminUser) {
@@ -80,7 +70,6 @@ const seedProducts = async () => {
 
     await Product.insertMany(productsWithUser);
     console.log("Products added with user"); 
->>>>>>> 998ca10ab58964e6ded975519753f82723124b1a
 
     process.exit();
   } 
