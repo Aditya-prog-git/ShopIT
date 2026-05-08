@@ -14,11 +14,7 @@ const Register = () => {
 
   const { name, email, password } = user
 
-<<<<<<< HEAD
-  const [register, {isLoading, error, data}] =  useRegisterMutation();
-=======
   const [register, {isLoading, error}] =  useRegisterMutation();
->>>>>>> 998ca10ab58964e6ded975519753f82723124b1a
 
   const { isAuthenticated } = useSelector((state) => state.auth)
 

@@ -2,8 +2,6 @@ import React from 'react'
 import SideMenu from './SideMenu'
 
 const UserLayout = ( {children} ) => {
-<<<<<<< HEAD
-=======
 
   const menuItems = [
     {
@@ -28,7 +26,6 @@ const UserLayout = ( {children} ) => {
     },
   ]
 
->>>>>>> 998ca10ab58964e6ded975519753f82723124b1a
   return (
     <div>
       <div className="mt-2 bm-4 py-4">
@@ -38,11 +35,7 @@ const UserLayout = ( {children} ) => {
       <div className="container">
         <div className="row justify-content-around">
           <div className="col-12 col-lg-3">
-<<<<<<< HEAD
-            <SideMenu />
-=======
             <SideMenu menuItems={menuItems}/>
->>>>>>> 998ca10ab58964e6ded975519753f82723124b1a
           </div>
           <div className="col-12 col-lg-8 user-dashboard">{children}</div>
         </div>

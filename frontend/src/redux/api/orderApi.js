@@ -3,28 +3,18 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 export const orderApi = createApi({
   reducerPath: 'orderApi',
   baseQuery: fetchBaseQuery({ baseUrl: "/api/v1" }),
-<<<<<<< HEAD
-=======
   tagTypes: ["Order", "AdminOrders"],
->>>>>>> 998ca10ab58964e6ded975519753f82723124b1a
   keepUnusedDataFor: 30,
   endpoints: (builder) => ({
     createNewOrder: builder.mutation({
       query(body) {
         return {
-<<<<<<< HEAD
-          url: "/orders/new",
-=======
           url: "/orders/new", 
->>>>>>> 998ca10ab58964e6ded975519753f82723124b1a
           method: "POST",
           body
         }
       }
     }),
-<<<<<<< HEAD
-
-=======
     myOrders: builder.query({
       query: () => `me/orders`,
     }),
@@ -32,22 +22,11 @@ export const orderApi = createApi({
       query: (id) => `/orders/${id}`,
       providesTags: ['Order'],
     }),
->>>>>>> 998ca10ab58964e6ded975519753f82723124b1a
     stripeCheckoutSession: builder.mutation({
       query(body) {
         return {
           url: "/payment/checkout_session",
           method: "POST",
-<<<<<<< HEAD
-          body
-        }
-      }
-    }),
-  }),
-});
-
-export const { useCreateNewOrderMutation, useStripeCheckoutSessionMutation } = orderApi;
-=======
           body,
         }
       }
@@ -89,4 +68,3 @@ export const { useCreateNewOrderMutation,
   useGetAdminOrdersQuery,
   useUpdateOrderMutation,
   useDeleteOrderMutation} = orderApi;
->>>>>>> 998ca10ab58964e6ded975519753f82723124b1a

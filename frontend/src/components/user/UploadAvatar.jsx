@@ -28,11 +28,7 @@ const UploadAvatar = () => {
       toast.success("Avatar Uploaded")
       navigate("/me/profile")
     }
-<<<<<<< HEAD
-  }, [user, error, isSuccess])
-=======
   }, [user, error, isSuccess, navigate])
->>>>>>> 998ca10ab58964e6ded975519753f82723124b1a
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -74,11 +70,7 @@ const UploadAvatar = () => {
             <div className="d-flex align-items-center">
               <div className="me-3">
                 <figure className="avatar item-rtl">
-<<<<<<< HEAD
-                  <img src={avatarPreview} className="rounded-circle" alt="image" />
-=======
                   <img src={avatarPreview} className="rounded-circle" alt="Avatar preview" />
->>>>>>> 998ca10ab58964e6ded975519753f82723124b1a
                 </figure>
               </div>
               <div className="input-foam">

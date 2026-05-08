@@ -5,19 +5,12 @@ import CheckoutSteps from './CheckoutSteps'
 import { calculateCost } from '../helpers/helpers'
 import { useCreateNewOrderMutation, useStripeCheckoutSessionMutation } from '../../redux/api/orderApi'
 import { toast } from 'react-hot-toast'
-<<<<<<< HEAD
-// import { useNavigate } from 'react-router-dom'
-=======
 import { useNavigate } from 'react-router-dom'
->>>>>>> 998ca10ab58964e6ded975519753f82723124b1a
 
 const PaymentMethod = () => {
 
   const [method, setMethod] = useState('')
-<<<<<<< HEAD
-=======
   const navigate = useNavigate()
->>>>>>> 998ca10ab58964e6ded975519753f82723124b1a
 
   // const navigate = useNavigate();
 
@@ -25,11 +18,7 @@ const PaymentMethod = () => {
 
   const [createNewOrder, { error, isSuccess }] = useCreateNewOrderMutation();
 
-<<<<<<< HEAD
-  const [ stripeCheckoutSession, { data: checkoutData, error: checkoutError} ] = useStripeCheckoutSessionMutation();
-=======
   const [ stripeCheckoutSession, { data: checkoutData, error: checkoutError, isLoading} ] = useStripeCheckoutSessionMutation();
->>>>>>> 998ca10ab58964e6ded975519753f82723124b1a
 
   useEffect(() => {
     if(checkoutData){
@@ -51,15 +40,9 @@ const PaymentMethod = () => {
     }
 
     if (isSuccess) {
-<<<<<<< HEAD
-      window.location.href = "/"
-    }
-  }, [error, isSuccess])
-=======
       navigate("/me/orders?order_success=true");
     }
   }, [error, isSuccess, navigate]);
->>>>>>> 998ca10ab58964e6ded975519753f82723124b1a
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -134,24 +117,15 @@ const PaymentMethod = () => {
                 type="radio"
                 name="payment_mode"
                 id="cardradio"
-<<<<<<< HEAD
-                value="Card"
-                onChange={(e) => setMethod("Card")}
-=======
                 value="card"
                 onChange={(e) => setMethod("card")}
->>>>>>> 998ca10ab58964e6ded975519753f82723124b1a
               />
               <label className="form-check-label" htmlFor="cardradio">
                 Card - VISA, MasterCard
               </label>
             </div>
 
-<<<<<<< HEAD
-            <button id="shipping_btn" type="submit" className="btn py-2 w-100">
-=======
             <button id="shipping_btn" type="submit" className="btn py-2 w-100" disabled={isLoading}>
->>>>>>> 998ca10ab58964e6ded975519753f82723124b1a
               CONTINUE
             </button>
           </form>
