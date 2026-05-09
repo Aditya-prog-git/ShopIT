@@ -1,11 +1,17 @@
 import mongoose from "mongoose";
+import dotenv from 'dotenv';
 import products from "./data.js";
 import User from "../models/user.js";
 import Product from "../models/product.js";
 
+//load env variables
+dotenv.config({ path: './config/config.env' });
+
 const seedProducts = async () => {
   try{
-    await mongoose.connect("mongodb://127.0.0.1:27017/shopit-v2");
+    console.log('Connecting to database...');
+    await mongoose.connect("mongodb+srv://adityadbuser:aditya%40123@shopit.o4bwsk2.mongodb.net/?appName=Shopit-v2");
+    console.log('Connected successfully');
 
     // Create or get admin user
     let adminUser = await User.findOne({ email: 'admin@shopit.com' });

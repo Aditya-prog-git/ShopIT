@@ -12,6 +12,12 @@ import cookieParser from 'cookie-parser';
 import orderRoutes from './routes/order.js';
 import paymentRoutes from './routes/payment.js';
 
+import path from 'path'
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
+
 //handle uncaught exceptions
 process.on('uncaughtException', err => {
     console.log(`Error: ${err.message}`);
@@ -20,7 +26,10 @@ process.on('uncaughtException', err => {
 });
 
 const app = express();
-dotenv.config({ path: 'backend/config/config.env' });
+
+if(process.env.NODE_ENV !== "production"){
+    dotenv.config({ path: 'backend/config/config.env' });
+}
 
 //connecting to database
 connectDatabase();
@@ -39,6 +48,14 @@ app.use('/api/v1', userRoutes);
 app.use('/api/v1', orderRoutes);
 //payment routes
 app.use('/api/v1', paymentRoutes);
+
+if(process.env.NODE_ENV === "production"){
+    app.use(express.static(path.join(__dirname, "../frontend/build")))
+
+    app.get('*', (req, res) => {
+        res.sendFile(path.resolve(__dirname, "../frontend/build/index.html"))
+    })
+}
 
 //using error middleware
 app.use(errroMiddleware);
