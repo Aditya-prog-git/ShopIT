@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useState, useRef} from 'react'
 import {useLoginMutation} from "../../redux/api/authApi"
 import toast from 'react-hot-toast'
 import { useSelector } from 'react-redux'
@@ -10,13 +10,20 @@ const Login = () => {
   const [password, setPassword] = useState('')
 
   const navigate = useNavigate();
+  const initialAuthRef = useRef(null);
 
   const [login, { isLoading, error }] = useLoginMutation();
   
   const { isAuthenticated } = useSelector((state) => state.auth)
 
   useEffect(() => {
-    if(isAuthenticated)navigate("/")
+    if(initialAuthRef.current === null) {
+      initialAuthRef.current = isAuthenticated;
+    }
+
+    if(!initialAuthRef.current && isAuthenticated) {
+      navigate("/")
+    }
 
     if(error) {
       toast.error(error?.data?.message)
