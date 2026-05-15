@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setCartItem } from '../../redux/features/cartSlice';
 import NewReview from '../reviews/NewReview';
 import ListReviews from '../reviews/ListReviews';
+import NotFound from '../layout/NotFound';
 
 const ProductDetails = () => {
   const params = useParams();
@@ -26,6 +27,7 @@ const ProductDetails = () => {
 
   useEffect(() => {
     if(isError){
+      console.log("Error object:", error);
       toast.error(error?.data?.message);
     }
   }, [isError, error]);
@@ -59,7 +61,11 @@ const ProductDetails = () => {
     toast.success("Item added to cart");
   };
 
-  if(isLoading)return <Loader />;   
+  if(isLoading)return <Loader />;  
+
+  if(error && error?.status === 404){
+    return <NotFound />
+  }
 
   return (
     <>
