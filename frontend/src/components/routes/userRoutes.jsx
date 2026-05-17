@@ -9,6 +9,7 @@ import ProtectedRoute from "../auth/ProtectedRoute";
 import UploadAvatar from "../user/UploadAvatar";
 import UpdatePassword from "../user/UpdatePassword";
 import ForgotPassword from "../auth/ForgotPassword";
+import ResetPassword from "../auth/ResetPassword";
 import Cart from "../cart/Cart";
 import Shipping from "../cart/Shipping";
 import ConfirmOrder from "../cart/ConfirmOrder";
@@ -27,6 +28,7 @@ const UserRoutes = () => {
             <Route path="/login" element={<Login />} />
 
             <Route path="/password/forgot" element={<ForgotPassword />} />
+            <Route path="/password/reset/:token" element={<ResetPassword />} />
             <Route path="/register" element={<Register />} />
             <Route path="/me/profile" element={
               <ProtectedRoute >

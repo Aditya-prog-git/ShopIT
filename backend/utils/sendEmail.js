@@ -1,14 +1,15 @@
 import nodemailer from 'nodemailer';
 
 const sendEmail = async (options) => {
-  const transport = nodemailer.createTransport({
+  const transporter = nodemailer.createTransport({
     host: process.env.SMTP_HOST,
     port: process.env.SMTP_PORT,
+    secure: false, // use STARTTLS (upgrade connection to TLS after connecting)
     auth: {
       user: process.env.SMTP_EMAIL,
       pass: process.env.SMTP_PASSWORD,
-    },
-  });
+  },
+});
 
   const message = {
     from: `${process.env.SMTP_FROM_NAME} <${process.env.SMTP_FROM_EMAIL}>`,
@@ -17,7 +18,10 @@ const sendEmail = async (options) => {
     html: options.message,
   };
 
-  await transport.sendMail(message);
+  await transporter.sendMail(message);
 };
 
 export default sendEmail;
+
+
+// Create a transporter using SMTP
