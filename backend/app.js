@@ -36,10 +36,6 @@ connectDatabase();
 
 //json parser
 app.use(express.json({ limit: '10mb' }));
-app.use(express.json({ limit: '10mb', verify:(req, res, buf)=> {req.rawBody=buf.toString()} }));
-//cookies parser
-app.use(cookieParser());
-
 app.use(
   express.json({
     limit: "10mb",
@@ -48,6 +44,10 @@ app.use(
     },
   })
 );
+//cookies parser
+app.use(cookieParser());
+
+
 
 //routes
 app.use('/api/v1', productRoutes);
