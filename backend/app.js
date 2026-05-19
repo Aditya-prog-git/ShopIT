@@ -40,6 +40,15 @@ app.use(express.json({ limit: '10mb', verify:(req, res, buf)=> {req.rawBody=buf.
 //cookies parser
 app.use(cookieParser());
 
+app.use(
+  express.json({
+    limit: "10mb",
+    verify: (req, res, buf) => {
+      req.rawBody = buf;
+    },
+  })
+);
+
 //routes
 app.use('/api/v1', productRoutes);
 //auth routes
