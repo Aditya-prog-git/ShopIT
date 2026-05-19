@@ -15,7 +15,7 @@ const getStripe = () => {
 export const stripeCheckoutSession = catchAsyncErrors(async (req, res, next) => {
   const stripeClient = getStripe();
 
-  const body = req?.body;
+  const body = req?.rawBody;
   const line_items = body?.orderItems?.map((item) => {
     return{
       price_data: {
